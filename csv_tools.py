@@ -122,7 +122,3 @@ def test_convertStringToKey():
 def test_readFileIntoJSON():
     result = readFileIntoJSONList('test_read.csv', 'utf8')
     return result
-
-result = test_readFileIntoJSON()
-
-writeJSONToCSV(result, 'dummy_output.csv', 'utf8')
