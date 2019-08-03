@@ -75,6 +75,8 @@ def writeJSONToCSV(jsonObjList, filename, encode):
     else:
         return None
 
+    # Probably should use csv writer to be consistent
+    # this was easier to work with
     outFile = codecs.open(filename, "w", encode)
 
     colCount = 0
@@ -120,7 +122,6 @@ def test_convertStringToKey():
 def test_readFileIntoJSON():
     result = readFileIntoJSONList('test_read.csv', 'utf8')
     return result
-
 
 result = test_readFileIntoJSON()
 
