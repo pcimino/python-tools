@@ -28,6 +28,8 @@ def convertStringToKey(strVal):
 #   { 'columnHeader_1' : 'rowValue_1', ... 'columnHeader_n' : 'rowValue_n' }
 #   { 'columnHeader_1' : 'rowValue_1', ... 'columnHeader_n' : 'rowValue_n' }
 # ]
+## TODO use the readCSV() to create a row list, then take the row list as an argument
+## instead of opening a file
 def readFileIntoJSONList(filename, encode):
     inFile = open(filename, 'rt', encoding=encode)
     reader = csv.reader(inFile)
@@ -35,6 +37,7 @@ def readFileIntoJSONList(filename, encode):
     jsonObjectList = []
 
     row = next(reader)
+    print('row;', row)
     for col in row:
         keys.append(convertStringToKey(col))
     print(keys)
@@ -46,6 +49,26 @@ def readFileIntoJSONList(filename, encode):
         jsonObjectList.append(json.loads(jsonString))
     inFile.close()
     return jsonObjectList
+
+# read the CSV in
+# if skipHeader = True then skip the first row
+def readFileIntoList(filename, encode, skipHeader):
+    inFile = open(filename, 'rt', encoding=encode)
+    reader = csv.reader(inFile)
+    data = []
+
+    # read the first row
+    row = next(reader)
+    if skipHeader:
+       # Do nothing
+       data = []
+    else:
+        data.append(row)
+
+    for row in reader:
+        data.append(row)
+    inFile.close()
+    return data
 
 # Get the KEYs from simple JSON Object
 def getJSONObjectKeys(jsonObject):
@@ -121,4 +144,8 @@ def test_convertStringToKey():
 
 def test_readFileIntoJSON():
     result = readFileIntoJSONList('test_read.csv', 'utf8')
+    return result
+
+def test_readFileIntoList(flag):
+    result = readFileIntoList('test_read.csv', 'utf8', flag)
     return result

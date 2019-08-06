@@ -18,10 +18,18 @@ jt.writeJSONFile('dummy_output.json', testData)
 
 ###
 ###
-printHeader("Read JSON and write CSV")
+printHeader("Read CSV and write CSV")
 result = ct.test_readFileIntoJSON()
 print(json.dumps(result, indent=4, sort_keys=True))
 ct.writeJSONToCSV(result, 'dummy_output.csv', 'utf8')
+
+###
+###
+printHeader("Read CSV ")
+result = ct.test_readFileIntoList(False)
+print('Include header:', result)
+result = ct.test_readFileIntoList(True)
+print('Skip header:', result)
 
 ###
 ###
