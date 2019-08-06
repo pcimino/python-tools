@@ -5,20 +5,54 @@ Example of leveraging existing modules or some of my own
 python3 run_tests.py
 
 # Install
-pip install --user --requirement requirements.txt
+## Setup virtualenv
+pip install virtualenv
+virtualenv env
+source env/bin/activate
+pip install -r requirements.txt
 
-# Requirements
-requirements.txt is often used to store all the external dependencies needed to run a program
+# Syntax checker
+https://rextester.com/l/postgresql_online_compiler
 
-Can install packages and update requirements.txt
+# Sample PostgreSQL
+http://www.postgresqltutorial.com/
 
-pip install slugify 
+-- CASCADE gets rid of dependent objects/contstraints
+DROP TABLE IF EXISTS PERSONS CASCADE;
 
-Then save all the installed packages
+CREATE TABLE Persons (
+    Personid serial,
+    LastName varchar(255) NOT NULL,
+    FirstName varchar(255) NOT NULL,
+    Age int,
+    PRIMARY KEY (FirstName,LastName)
+);
 
-pip freeze > requirements.txt
+-- See table definition information
+SELECT
+   COLUMN_NAME
+FROM
+   information_schema.COLUMNS
+WHERE
+   TABLE_NAME = 'persons';
 
-Then when downloading a fresh project, install the dependencies:
+SELECT
+   table_name, column_name, data_type
+FROM
+   information_schema.COLUMNS
+WHERE
+   TABLE_NAME = 'persons';
 
-pip install --user --requirement requirements.txt
+
+-- DEFAULT promary key IS [table]_pkey : persons_pkey; 
+
+INSERT INTO PERSONS (LastName, FirstName, Age)
+VALUES ('LAST_A','First_A',5) 
+ON CONFLICT ON CONSTRAINT persons_pkey 
+DO NOTHING;
+
+SELECT * FROM PERSONS;
+
+
+
 

@@ -5,7 +5,6 @@ import json
 def readJSONFile(filename):
     with open(filename) as json_file:
         data = json.load(json_file)
-
     return data
 
 
@@ -13,4 +12,4 @@ def readJSONFile(filename):
 def writeJSONFile(filename, jsonObj):
     with open(filename, 'w') as outfile:
         json.dump(jsonObj, outfile)
-
+    return None
