@@ -78,21 +78,3 @@ def simpleQueryTest(conn):
             cur.close()
             cur = None
             print('Cursor is closed.')
-
-config = readJSONFile('test_config.json')
-conn = getConnection(config)
-print('simpleQueryTest(conn):')
-simpleQueryTest(conn)
-
-
-print("Insert Data")
-import random
-import string
-
-commandStr = "INSERT INTO PERSONS (LastName, FirstName, Age) VALUES ('" + random.choice(string.ascii_letters) + "','First_A',5) ON CONFLICT ON CONSTRAINT persons_pkey DO NOTHING"
-cur = executeCommand(conn, commandStr, True)
-if cur is not None:
-    print('No cursor returned')
-
-print('simpleQueryTest(conn):')
-simpleQueryTest(conn)
